@@ -2,7 +2,7 @@ FROM phusion/baseimage:focal-1.0.0alpha1-amd64
 MAINTAINER josh@intentarget.com
 
 RUN mkdir /root/project
-WORKDIR /rooti/project
+WORKDIR /root/project
 
 ENV RUNLEVEL=1;
 
@@ -27,7 +27,8 @@ php8.0-xml \
 php8.0-dev \
 php8.0-bcmath \
 php8.0-zip \
-php8.0-dom
+php8.0-dom \
+php8.0-redis
 
 RUN pecl install swoole && \
 echo "extension=swoole.so" >> /etc/php/8.0/cli/php.ini && \
