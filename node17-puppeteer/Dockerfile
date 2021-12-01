@@ -15,6 +15,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN npm init -y \
+    && npm install -g husky \
     && npm install -g puppeteer --unsafe-perm=true --allow-root
 
 
