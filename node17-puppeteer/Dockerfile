@@ -1,6 +1,8 @@
 FROM node:17-slim
 MAINTAINER josh@intentarget.com
 
+WORKDIR /root/project
+
 RUN apt-get update \
     && apt-get install -y cron libxshmfence-dev \
     && cron \
@@ -12,27 +14,8 @@ RUN apt-get update \
       --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video,root,node pptruser
-
-RUN mkdir -p /home/project \
-    mkdir -p /home/pptruser \
-    && chown -R pptruser:pptruser /home/project \
-    && chown -R pptruser:pptruser /home/pptruser \
-    && chmod -R 775 /home/project \
-    && chmod -R 775 /home/pptruser
-
-USER pptruser
-WORKDIR /home/pptruser
-
-RUN npm config set prefix '~/.local/'
-
-RUN mkdir -p ~/.local/bin
-
-RUN echo 'export PATH=~/.local/bin/:$PATH' >> ~/.bashrc
-
 RUN npm init -y \
-    && npm install -g puppeteer --unsafe-perm=true
+    && npm install -g puppeteer --unsafe-perm=true --allow-root
 
-WORKDIR /home/project
 
 CMD ["tail", "-f", "/dev/null"]
