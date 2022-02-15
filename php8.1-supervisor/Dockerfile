@@ -1,4 +1,4 @@
-FROM phpswoole/swoole:4.8-php8.0
+FROM phpswoole/swoole:4.8-php8.1
 MAINTAINER Josh Tsai <u9951064@gmail.com>
 
 RUN mkdir /root/project
